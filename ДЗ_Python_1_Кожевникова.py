@@ -5,72 +5,18 @@ print("___While___")
 
 print("Task 1.1:")
 
-i = 2
-j = 1
-list = []
-while i <= 1000:
-    i = i + 2 ** j
-    j += 1
-    list.append(j)
-print ("For 1000km:", len(list), "days")
-i = 2
-j = 1
-list = []
-while i <= 10000:
-    i = i + 2 ** j
-    j += 1
-    list.append(j)
-print ("For 10000km:", len(list), "days")
-
-"""2.*Каждый день я пробегаю «следующее простое число» км. 
-Сколько дней пройдет, пока я в сумме пробегу 1000 км? 10000 км? """
-
-print("Task 1.2:")
-
-import math
-#print("What is the prime number of kilometers you run every day?")
-#n = int(input())
-n = 11
-print(n)
-
-def s1t2(n):
-
-    if n < 2:
-        print("A number must be 2 and more")
-        quit()
-    elif n == 2:
-        print("It's prime number")
-        return True
-    # переменная-делитель, которая будет последовательно
-    # увеличиваться на 1 в цикле
-    i = 2
-    # Предел, до которого будет увеличиваться i.
-    # (При проверке простоты числа достаточно перебрать делители
-    # от 2 до квадратного корня из исследуемого числа.)
-    limit = int(math.sqrt(n))
-
-    while i <= limit:
-        if n % i == 0:
-            print("This is composite number")
-            quit()
-
-        i += 1
-
-    print("It's prime number")
-    return True
-
-if s1t2(n):
-
-    #print("How many days to run until the number of kilometers is equal to:")
-    #m = int(input())
-    m = 1000
-    j = int(m/n) + 1
-    print("For", m, "km:", j, "days")
-    m = 10000
-    j = int(m / n) + 1
-    print("For", m, "km:", j, "days")
-else:
-    exit()
+def s1t1(x):
+    sumkm = 0
+    scope = 2
+    i = 0
+    while (sumkm < x):
+        sumkm = sumkm + scope
+        i = i + 1
+        scope = scope * 2
+    return i
+print("Result task 1.1:")
+print("For 1000km:", s1t1(1000), "days")
+print("For 10000km:", s1t1(10000), "days")
 
 
 """3.Начав тренировки, спортсмен в первый день пробежал 10 км. Для увеличения
@@ -82,14 +28,14 @@ print("Task 1.3:")
 
 def s1t3(days):
     km = 10
-    sum = 0
+    sumkm = 0
     day = 1
     while day <= days:
         if day % 2 == 0:
             km *= 1.15
-        sum += km
+        sumkm += km
         day += 1
-    return sum
+    return sumkm
 
 
 print(s1t3(30), "km fot 30 days")
@@ -99,27 +45,28 @@ print(s1t3(30), "km fot 30 days")
 а) спортсмен будет пробегать в день больше 20 км;
 b) пробежит суммарный путь 100 км."""
 
-print("Task 1.4")
+print("Task 1.4a")
 
+start=10
+percent=1.1
+i=0
+while(start<20):
+    i=i+1
+    start=start*percent
+print(i, "days")
 
-def s1t4():
-    res = [0, 0]
-    km = 10
-    day = 1
-    sum = 0
-    while True:
-        sum += km
-        if km > 20 and res[0] == 0:
-            res[0] = day
-        if sum >= 100 and res[1] == 0:
-            res[1] = day
-        if res[0] > 0 and res[1] > 0:
-            break
-        km *= 1.1
-        day += 1
-    return res
+print("Task 1.4a")
 
-print(s1t4())
+start=10
+percent=1.1
+sum=0
+i=0
+while(sum<100):
+    sum=sum+ (start*percent)*2
+    i=i+1
+    start=start*percent
+print(i, "days")
+
 
 print ("___For___")
 
@@ -128,15 +75,14 @@ print ("___For___")
 print("Task 2.1:")
 
 def s2t1(n):
-    first_val = 1
-    second_val = 1
-    l = [first_val,second_val]
-    for _ in range(1,15):
-        sum = first_val+second_val
-        l.append(sum)
-        first_val=second_val
-        second_val=sum
-    return l[n-1]
+    a = 1
+    b = 0
+    A = 0
+    for _ in range (n):
+        A = a + b
+        a = b
+        b = A
+    return A
 
 
 print("Ninth term in the sequence =", s2t1(9))
@@ -147,17 +93,19 @@ print("Ninth term in the sequence =", s2t1(9))
 print("Task 2.2:")
 
 def s2t2(n):
-    first_val = 1
-    second_val = 1
-    third_val = 1
-    l = [first_val, second_val, third_val]
-    for _ in range(1,15):
-        sum = first_val+second_val+third_val
-        l.append(sum)
-        first_val = second_val
-        second_val = third_val
-        third_val = sum
-    return l[n-1]
+    a = 1
+    b = 1
+    c = 1
+    if n == 1 or n == 2 or n == 3:
+        return 1
+    for i in range(4, n + 1):
+        n = a + b + c
+        a = b
+        b = c
+        c = n
+    return n
+
+    return A
 
 
 print("Ninth term in the sequence =", s2t2(9))
